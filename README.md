@@ -17,3 +17,5 @@ To open the Cypress test runner, execute the following command:
 ```bash
 yarn run cy:run
 ```
+
+If you want to run the test on development environment/localenvironment, do not forget to run the front-end first.
