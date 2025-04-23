@@ -1,14 +1,23 @@
 import {
+  getCheckbox,
   getDownloadButton,
   getErrorMessage,
+  getInput,
   getSectionTitle,
   getSubmitButton,
   getTextArea,
 } from "../../selectors/abstractSubmissionForm";
+import { getCookieAgreeButton, getVideoReleaseButton } from "../../selectors/main";
 
-describe("AbstractSubmissionForm", () => {
+describe("[AbstractSubmissionForm] Basic Filling", () => {
   beforeEach(() => {
     cy.visit("/en/submit");
+
+    cy.wait(500);
+    getCookieAgreeButton().click();
+    cy.wait(500);
+    getVideoReleaseButton().click();
+    
   });
 
   it("should render the AbstractSubmissionForm component", () => {
@@ -42,5 +51,26 @@ describe("AbstractSubmissionForm", () => {
     getErrorMessage(
       "There are errors in your submission. Please fix them before submitting."
     ).should("exist");
+  });
+
+  it("should fill the primary contact if the checkbox 'use this authors as primary contact' is checked", () => {
+    getInput("authors", "firstname", 0).type("John");
+    getInput("authors", "lastname", 0).type("Doe");
+    getInput("authors", "affiliation", 0).type("University of Test");
+    getInput("authors", "email", 0).type("johndoe@example.com");
+    getInput("authors", "orcidUrl", 0).type(
+      "https://orcid.org/0000-0000-0000-0000"
+    );
+    getInput("authors", "githubId", 0).type("johndoe");
+
+    getCheckbox("authors", "primaryContact", 0).check();
+
+    getCheckbox("authors", "primaryContact", 0).should("be.checked");
+
+    getInput("contact", "firstname", 0).should("have.value", "John");
+    getInput("contact", "lastname", 0).should("have.value", "Doe");
+    getInput("contact", "email", 0).should(
+      "have.value",
+      "johndoe@example.com");
   });
 });
