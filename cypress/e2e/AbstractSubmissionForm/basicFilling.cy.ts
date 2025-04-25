@@ -25,7 +25,6 @@ describe("[AbstractSubmissionForm] Basic Filling", () => {
 
     getSectionTitle("Title & Abstract").should("exist");
     getSectionTitle("Authors").should("exist");
-    getSectionTitle("Primary contact").should("exist");
     getSectionTitle("Repository").should("exist");
     getSectionTitle("Tools, Code & Data").should("exist");
 
@@ -53,7 +52,7 @@ describe("[AbstractSubmissionForm] Basic Filling", () => {
     ).should("exist");
   });
 
-  it("should fill the primary contact if the checkbox 'use this authors as primary contact' is checked", () => {
+  it("should make appear the confirm email input if checkbox 'use this authors as primary contact' is checked", () => {
     getInput("authors", "firstname", 0).type("John");
     getInput("authors", "lastname", 0).type("Doe");
     getInput("authors", "affiliation", 0).type("University of Test");
@@ -66,11 +65,6 @@ describe("[AbstractSubmissionForm] Basic Filling", () => {
     getCheckbox("authors", "primaryContact", 0).check();
 
     getCheckbox("authors", "primaryContact", 0).should("be.checked");
-
-    getInput("contact", "firstname", 0).should("have.value", "John");
-    getInput("contact", "lastname", 0).should("have.value", "Doe");
-    getInput("contact", "email", 0).should(
-      "have.value",
-      "johndoe@example.com");
+    getInput("authors", "confirmEmail", 0).should("exist");
   });
 });

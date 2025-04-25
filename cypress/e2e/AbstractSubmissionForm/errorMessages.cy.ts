@@ -1,7 +1,4 @@
-import { accentColor, errorColor } from "../../fixtures/colors";
 import {
-  getErrorMessage,
-  getMessageAtLeastOneGithubId,
   getSubmitButton,
   getTextArea,
   getInput,
@@ -28,6 +25,10 @@ describe("[AbstractSubmissionForm] Error messages", () => {
     getAddItemButton("authors").click();
 
     abstractExample.authors.forEach((author, index) => {
+      
+      if (author.primaryContact) {
+        getCheckbox("authors", "primaryContact", index).check();
+      }
       getInput("authors", "firstname", index).type(author.firstname);
       getInput("authors", "lastname", index).type(author.lastname);
       getInput("authors", "affiliation", index).type(author.affiliation);
@@ -36,24 +37,23 @@ describe("[AbstractSubmissionForm] Error messages", () => {
       getInput("authors", "blueskyId", index).type(author.blueskyId);
       getInput("authors", "facebookId", index).type(author.facebookId);
 
-      if (author.primaryContact) {
-        getCheckbox("authors", "primaryContact", index).check();
-      }
     });
   });
 
-  it("should render 'at least one GitHub ID' message in red", () => {
-    getMessageAtLeastOneGithubId().should("exist");
-    getMessageAtLeastOneGithubId().should("have.css", "color", accentColor);
+  it("should display an error message 'at least one GitHub ID'", () => {
     getSubmitButton().click();
-    getMessageAtLeastOneGithubId().should("have.css", "color", errorColor);
+    getErrorMessageByIdAndField("authors", "githubId").should("exist");
+    getErrorMessageByIdAndField("authors", "githubId").should(
+      "contain",
+      "At least one author must have a valid Github Username"
+    );
   });
 
   it("should display an error message for confirmEmail when it is invalid", () => {
-    getInput("contact", "confirmEmail", 0).type(wrongEmail);
+    getInput("authors", "confirmEmail", 1).type(wrongEmail);
     getSubmitButton().click();
-    getErrorMessageByIdAndField("contact", "confirmEmail").should("exist");
-    getErrorMessageByIdAndField("contact", "confirmEmail").should(
+    getErrorMessageByIdAndField("authors", "confirmEmail").should("exist");
+    getErrorMessageByIdAndField("authors", "confirmEmail").should(
       "contain",
       "Email addresses do not match"
     );

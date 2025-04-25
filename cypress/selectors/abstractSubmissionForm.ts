@@ -21,5 +21,3 @@ export const getErrorMessageById = (id: string) =>
   cy.get(`[data-test="error-message-${id}"]`);
 export const getErrorMessageByIdAndField = (id: string, field: string) =>
   cy.get(`[data-test="error-message-${id}-${field}"]`);
-export const getMessageAtLeastOneGithubId = () =>
-  cy.get(`[data-test="error-message-authors-atLeastOneGithubId"]`);
