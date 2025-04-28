@@ -1,4 +1,5 @@
 export const abstractExample = {
+  callForPapers: "openSubmission",
   title: "Example of title of abstract",
   abstract:
     "Digital history explores the intersection of technology and historical research, leveraging digital tools to uncover new insights and perspectives.",
@@ -31,15 +32,6 @@ export const abstractExample = {
       link: "https://example.com/dataset1",
       description:
         "This dataset includes historical data from various sources.",
-    },
-  ],
-  contact: [
-    {
-      firstname: "Jane",
-      lastname: "Doe",
-      affiliation: "University of Data Science",
-      email: "jane.doe@example.com",
-      confirmEmail: "jane.doe@example.com",
     },
   ],
   languagePreference: "Python",

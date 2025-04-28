@@ -8,10 +8,17 @@ export const getDownloadButton = () =>
 export const getAddItemButton = (id: string) =>
   cy.get(`[data-test="button-add-item-${id}"]`);
 
-export const getTextArea = (field: string) =>
-  cy.get(`[data-test="form-textarea-${field}"]`);
-export const getCheckbox = (id: string, field: string, index: number) =>
-  cy.get(`[data-test="form-check-input-${id}-${field}-${index}"]`);
+export const getElement = (id: string) => cy.get(`[data-test="${id}"]`);
+export const getTextArea = (id: string) =>
+  cy.get(`[data-test="form-textarea-${id}"]`);
+export const getTextAreaById = (id: string, field:string, index: number) =>
+  cy.get(`[data-test="form-textarea-${id}-${field}-${index}"]`);
+export const getSelect = (field: string) =>
+  cy.get(`[data-test="form-select-${field}"]`);
+export const getCheckbox = (id:string) =>
+  cy.get(`[data-test="form-checkbox-${id}"]`);
+export const getCheckboxById = (id: string, field: string, index: number) =>
+  cy.get(`[data-test="form-checkbox-${id}-${field}-${index}"]`);
 export const getInput = (id: string, field: string, index: number) =>
   cy.get(`[data-test="form-control-${id}-${field}-${index}"]`);
 

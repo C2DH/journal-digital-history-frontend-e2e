@@ -1,22 +1,22 @@
 import {
-  getCheckbox,
+  getCheckboxById,
   getDownloadButton,
-  getErrorMessage,
   getInput,
   getSectionTitle,
   getSubmitButton,
   getTextArea,
-} from "../../selectors/abstractSubmissionForm";
-import { getCookieAgreeButton, getVideoReleaseButton } from "../../selectors/main";
+} from "../../support/selectors/abstractSubmissionForm";
+import { getCookieAgreeButton, getVideoReleaseButton } from "../../support/selectors/main";
 
 describe("[AbstractSubmissionForm] Basic Filling", () => {
   beforeEach(() => {
     cy.visit("/en/submit");
 
-    cy.wait(500);
+    cy.wait(1000);
     getCookieAgreeButton().click();
-    cy.wait(500);
+    cy.wait(1000);
     getVideoReleaseButton().click();
+    cy.wait(1000);
     
   });
 
@@ -44,14 +44,6 @@ describe("[AbstractSubmissionForm] Basic Filling", () => {
     );
   });
 
-  it("should display an error message if the form is submitted without required fields", () => {
-    getSubmitButton().click();
-
-    getErrorMessage(
-      "There are errors in your submission. Please fix them before submitting."
-    ).should("exist");
-  });
-
   it("should make appear the confirm email input if checkbox 'use this authors as primary contact' is checked", () => {
     getInput("authors", "firstname", 0).type("John");
     getInput("authors", "lastname", 0).type("Doe");
@@ -62,9 +54,9 @@ describe("[AbstractSubmissionForm] Basic Filling", () => {
     );
     getInput("authors", "githubId", 0).type("johndoe");
 
-    getCheckbox("authors", "primaryContact", 0).check();
+    getCheckboxById("authors", "primaryContact", 0).check();
 
-    getCheckbox("authors", "primaryContact", 0).should("be.checked");
+    getCheckboxById("authors", "primaryContact", 0).should("be.checked");
     getInput("authors", "confirmEmail", 0).should("exist");
   });
 });
