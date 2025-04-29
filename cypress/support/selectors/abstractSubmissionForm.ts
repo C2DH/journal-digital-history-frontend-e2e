@@ -1,4 +1,4 @@
-//TODO : all selectors should be based on data-test
+//Best practice : selectors should rely on data-test
 
 export const getSectionTitle = (title: string) => cy.contains("h3", title);
 
@@ -26,5 +26,5 @@ export const getErrorMessage = (message: string) =>
   cy.contains("p.text-error", message);
 export const getErrorMessageById = (id: string) =>
   cy.get(`[data-test="error-message-${id}"]`);
-export const getErrorMessageByIdAndField = (id: string, field: string) =>
-  cy.get(`[data-test="error-message-${id}-${field}"]`);
+export const getErrorMessageByIdAndField = (id: string, field: string, index: number) =>
+  cy.get(`[data-test="error-message-${id}-${field}-${index}"]`);

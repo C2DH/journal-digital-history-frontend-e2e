@@ -52,8 +52,13 @@ describe("[AbstractSubmissionForm] Error messages", () => {
 
     it("should display an error message for no githubId provided at all", () => {
       getSubmitButton().click();
-      getErrorMessageByIdAndField("authors", "githubId").should("exist");
-      getErrorMessageByIdAndField("authors", "githubId").should(
+      getErrorMessageByIdAndField("authors", "githubId",0).should("exist");
+      getErrorMessageByIdAndField("authors", "githubId",0).should(
+        "contain",
+        "At least one author must have a valid Github Username"
+      );
+      getErrorMessageByIdAndField("authors", "githubId",1).should("exist");
+      getErrorMessageByIdAndField("authors", "githubId",1).should(
         "contain",
         "At least one author must have a valid Github Username"
       );
@@ -62,10 +67,26 @@ describe("[AbstractSubmissionForm] Error messages", () => {
     it("should display an error message for mismatching email", () => {
       getInput("authors", "confirmEmail", 1).type(wrongEmail);
       getSubmitButton().click();
-      getErrorMessageByIdAndField("authors", "confirmEmail").should("exist");
-      getErrorMessageByIdAndField("authors", "confirmEmail").should(
+      getErrorMessageByIdAndField("authors", "confirmEmail",1).should("exist");
+      getErrorMessageByIdAndField("authors", "confirmEmail",1).should(
         "contain",
         "Email addresses do not match"
+      );
+    });
+
+  });
+
+  describe("[Dataset] - Error messages", () => {
+    it("should display an error message for missing dataset description", () => {
+      getAddItemButton("datasets").click();
+
+      getInput("datasets", "link", 0).type(abstractExample.datasets[0].link);
+      
+      getSubmitButton().click();
+      getErrorMessageByIdAndField("datasets", "description",0).should("exist");
+      getErrorMessageByIdAndField("datasets", "description",0).should(
+        "contain",
+        "Must be at least 1 character"
       );
     });
   });
