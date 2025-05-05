@@ -6,7 +6,7 @@ import {
   getSubmitButton,
   getElement,
 } from "../../support/selectors/abstractSubmissionForm";
-import { abstractExample } from "../../support/fixtures/data";
+import { abstractExample, abstractFromBackEndExample } from "../../support/fixtures/data";
 import { fillAbstractSubmissionForm } from "../../support/actions/abstractSubmissionForm";
 
 describe("[AbstractSubmissionForm] Basic Filling", () => {
@@ -21,11 +21,9 @@ describe("[AbstractSubmissionForm] Basic Filling", () => {
   });
 
   it("should fill the form and submit it successfully", () => {
-    cy.intercept("POST", "/api/submit-abstract/", {
+    cy.intercept("POST", "/api/submit-abstract/",  {
       statusCode: 201,
-      body: {
-        abstractExample,
-      },
+      body: abstractFromBackEndExample,
     }).as("submitForm");
 
     fillAbstractSubmissionForm(abstractExample);
@@ -39,8 +37,6 @@ describe("[AbstractSubmissionForm] Basic Filling", () => {
     getElement("title").contains(abstractExample.title).should("be.visible");
     getElement("abstract").contains(abstractExample.abstract).should("be.visible");
     getElement("call-for-papers").contains("Open submission").should("be.visible");
-    getElement("repository").contains(abstractExample.languagePreference).should("be.visible");
-  
     abstractExample.authors.forEach((author) => {
       Object.values(author).forEach((value) => {
         if (typeof value === "string") {
@@ -54,7 +50,7 @@ describe("[AbstractSubmissionForm] Basic Filling", () => {
         getElement("datasets").contains(value).should("be.visible");
       });
     });
-    
+    getElement("repository").contains(abstractExample.languagePreference).should("be.visible");
   });
 
   it("should fill the form and get an error page", () => {

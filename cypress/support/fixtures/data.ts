@@ -41,3 +41,41 @@ export const abstractExample = {
 };
 
 export const wrongEmail = "notsamemail@example.com"
+
+export const abstractFromBackEndExample = {
+  callpaper: null,
+  title: "Example of title of abstract",
+  abstract:
+    "Digital history explores the intersection of technology and historical research, leveraging digital tools to uncover new insights and perspectives.",
+  authors: [
+    {
+      firstname: "John",
+      lastname: "Doe",
+      affiliation: "University of Test",
+      email: "johndoe@example.com",
+      orcid: "https://orcid.org/0000-0000-0000-0000",
+      github_id: "johndoe",
+      bluesky_id: "johndoe.bsky.social",
+      facebook_id: "johndoe",
+    },
+    {
+      firstname: "Jane",
+      lastname: "Doe",
+      affiliation: "University of Test",
+      email: "janedoe@example.com",
+      orcid: "https://orcid.org/0000-0000-0000-0001",
+      github_id: "janedoe",
+      bluesky_id: "janedoe.bsky.social",
+      facebook_id: "janedoe",
+    },
+  ],
+  datasets: [
+    {
+      url: "https://example.com/dataset1",
+      description:
+        "This dataset includes historical data from various sources.",
+    },
+  ],
+  language_preference: "Python",
+  consented: true,
+};
