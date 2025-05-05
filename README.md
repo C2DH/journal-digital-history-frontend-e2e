@@ -12,7 +12,7 @@ yarn install
 
 By default the tests run against the development environment ([https://journalofdigitalhistory.org/en](https://journalofdigitalhistory.org/en)). To run the tests against a different environment, set the `BASE_URL` variable in the `.env` file to the location of the app (e.g. `https://localhost:5173` for the development environment).
 
-### Cypres test runner in terminal
+### Cypress test runner in terminal
 
 /!\ If you want to run the test, do not forget to run the front-end first on localhost 5173.
 
