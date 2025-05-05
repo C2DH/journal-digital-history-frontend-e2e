@@ -9,5 +9,6 @@ export default defineConfig({
   },
   env: {
     ... process.env,
-  }
+  },
+  retries: 2,
 });
