@@ -7,9 +7,9 @@ import {
   getElement,
 } from "../../support/selectors/abstractSubmissionForm";
 import { abstractExample, abstractFromBackEndExample } from "../../support/fixtures/data";
-import { fillAbstractSubmissionForm } from "../../support/actions/abstractSubmissionForm";
+import { interceptCheckGithubIdCall, fillAbstractSubmissionForm } from "../../support/actions/abstractSubmissionForm";
 
-describe("[AbstractSubmissionForm] Basic Filling", () => {
+describe("[AbstractSubmissionForm] Complete Filling", () => {
   beforeEach(() => {
     cy.visit("/en/submit");
 
@@ -21,12 +21,14 @@ describe("[AbstractSubmissionForm] Basic Filling", () => {
   });
 
   it("should fill the form and submit it successfully", () => {
+    interceptCheckGithubIdCall(abstractExample);
     cy.intercept("POST", "/api/submit-abstract/",  {
       statusCode: 201,
       body: abstractFromBackEndExample,
     }).as("submitForm");
 
     fillAbstractSubmissionForm(abstractExample);
+    cy.wait("@checkGithubId");
 
     getSubmitButton().click();
     cy.wait("@submitForm");
@@ -53,7 +55,8 @@ describe("[AbstractSubmissionForm] Basic Filling", () => {
     getElement("repository").contains(abstractExample.languagePreference).should("be.visible");
   });
 
-  it("should fill the form and get an error page", () => {
+  it("should fill the form and get an error page", () => {   
+    interceptCheckGithubIdCall(abstractExample);
     cy.intercept("POST", "/api/submit-abstract/", {
       statusCode: 500,
       body: {
@@ -63,8 +66,9 @@ describe("[AbstractSubmissionForm] Basic Filling", () => {
         message: "Internal Server Error",
       },
     }).as("submitFormError");
-
+ 
     fillAbstractSubmissionForm(abstractExample);
+    cy.wait("@checkGithubId");
 
     getSubmitButton().click();
     cy.wait("@submitFormError");
