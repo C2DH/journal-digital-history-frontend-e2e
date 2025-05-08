@@ -37,6 +37,9 @@ export const fillAbstractSubmissionForm = (abstractExample: Abstract) => {
     getInput("authors", "lastname", index).type(author.lastname);
     getInput("authors", "affiliation", index).type(author.affiliation);
     getInput("authors", "email", index).type(author.email);
+    if(author.primaryContact) {
+      getInput("authors", "confirmEmail", index).type(author.email);
+    }
     getInput("authors", "orcidUrl", index).type(author.orcidUrl);
     getInput("authors", "githubId", index).type(author.githubId);
     getInput("authors", "blueskyId", index).type(author.blueskyId);
