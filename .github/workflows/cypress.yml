@@ -2,9 +2,9 @@ name: Run Cypress Tests
 
 on:
   push:
-    branches: [main]
+    branches: [main, develop, feature/my-feature]
   pull_request:
-    branches: [main]
+    branches: [main, develop, feature/my-feature]
 
 jobs:
   cypress-run:
