@@ -1,6 +1,6 @@
 # End-to-end tests for the Journal of Digital History
 
-This repository contains end-to-end tests for the Impresso web application. We use [Cypress](https://www.cypress.io/) as the testing framework. All tests are located in the `cypress/e2e` directory.
+This repository contains end-to-end tests for the Journal of Digital History([https://journalofdigitalhistory.org/en](https://journalofdigitalhistory.org/en)). We use [Cypress](https://www.cypress.io/) as the testing framework. All tests are located in the `cypress/e2e` directory.
 
 ## Running the tests
 
@@ -10,7 +10,7 @@ Clone this repository and install the dependencies:
 yarn install
 ```
 
-By default the tests run against the development environment ([https://journalofdigitalhistory.org/en](https://journalofdigitalhistory.org/en)). To run the tests against a different environment, set the `BASE_URL` variable in the `.env` file to the location of the app (e.g. `https://localhost:5173` for the development environment).
+By default the tests run against the development environment . To run the tests against a different environment, set the `BASE_URL` variable in the `.env` file to the location of the app (e.g. `https://localhost:5173` for the development environment).
 
 ### Cypress test runner in terminal
 

@@ -1,9 +1,13 @@
 {
+  "name": "journal-digital-history-frontend-e2e",
+  "version": "1.0.0",
+  "description": "End-to-end tests for the Journal Digital History frontend",
   "dependencies": {
     "cypress": "^14.3.1",
     "dotenv": "^16.5.0",
     "typescript": "^5.8.3"
   },
+  "packageManager": "yarn@1.22.22",
   "scripts": {
     "cy:open": "cypress open",
     "cy:run": "cypress run"
