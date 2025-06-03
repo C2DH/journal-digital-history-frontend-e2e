@@ -1,6 +1,8 @@
 name: Run Cypress Tests
 
 on:
+  schedule:
+    - cron: "0 8 * * 1,4"
   push:
     branches: [main, develop, feature/my-feature]
   pull_request:
