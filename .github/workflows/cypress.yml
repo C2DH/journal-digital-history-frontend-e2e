@@ -1,6 +1,10 @@
 name: Run Cypress Tests
 
 on:
+  workflow_dispatch:
+  # Trigger the workflow on a schedule and for specific branches
+  schedule:
+    - cron: "0 8 * * 1,4"
   push:
     branches: [main, develop, feature/my-feature]
   pull_request:
