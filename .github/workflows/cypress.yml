@@ -11,20 +11,7 @@ on:
 
 jobs:
   cypress-run:
-    runs-on: ubuntu-latest
-
-    services:
-      jdhistory:
-        image: c2dhunilu/journal-of-digital-history:latest
-        ports:
-          - 5173:5173
-        env:
-          NODE_ENV: test
-        options: >-
-          --health-cmd="curl -f http://localhost:5173 || exit 1"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=10
+    runs-on: self-hosted
 
     steps:
       - name: Checkout code
@@ -38,15 +25,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Wait for app to be ready
-        run: |
-          for i in {1..30}; do
-            nc -z localhost 5173 && echo "App is up!" && break
-            echo "Waiting for app..."
-            sleep 2
-          done
-
       - name: Run Cypress tests
         env:
-          CYPRESS_BASE_URL: http://localhost:5173/
+          CYPRESS_BASE_URL: http://10.240.4.198/
         run: yarn cy:run
