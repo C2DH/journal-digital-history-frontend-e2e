@@ -40,7 +40,7 @@ export const abstractExample = {
   termsAccepted: true,
 };
 
-export const wrongEmail = "notsamemail@example.com"
+export const wrongEmail = "notsamemail@example.com";
 
 export const abstractFromBackEndExample = {
   callpaper: null,
@@ -78,4 +78,19 @@ export const abstractFromBackEndExample = {
   ],
   language_preference: "Python",
   consented: true,
+};
+
+export const callForPaperOpenExample = {
+  count: 1,
+  next: null,
+  previous: null,
+  results: [
+    {
+      id: 1,
+      title: "Open Call for Papers",
+      folder_name: "opencallforpapers",
+      deadline_abstract: "2099-01-23T14:32:23+01:00",
+      deadline_article: "2099-01-24T00:00:00+01:00",
+    },
+  ],
 };

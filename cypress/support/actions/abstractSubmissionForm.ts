@@ -1,24 +1,28 @@
+import { callForPaperOpenExample } from "../fixtures/data";
 import { Abstract } from "../interfaces/abstractSubmissionForm";
 import {
   getAddItemButton,
-  getInput,
   getCheckbox,
   getCheckboxById,
+  getInput,
+  getSelect,
   getTextArea,
   getTextAreaById,
-  getSelect,
 } from "../selectors/abstractSubmissionForm";
 
-export const interceptCheckGithubIdCall = (data:Abstract) => {
+export const interceptCheckGithubIdCall = (data: Abstract) => {
   data.authors.forEach((author) => {
-    cy.intercept(
-      "GET",
-      `/api/submit-abstract/check-github-id/${author.githubId}`,
-      {
-        statusCode: 200,
-      }
-    ).as(`checkGithubId`);
+    cy.intercept("GET", `/api/check-github-id/${author.githubId}`, {
+      statusCode: 200,
+    }).as(`checkGithubId`);
   });
+};
+
+export const interceptCallForPapers = () => {
+  cy.intercept("GET", "/api/callforpaper/open", {
+    statusCode: 200,
+    body: callForPaperOpenExample,
+  }).as("getCallforPaper");
 };
 
 export const fillAbstractSubmissionForm = (abstractExample: Abstract) => {
@@ -37,7 +41,7 @@ export const fillAbstractSubmissionForm = (abstractExample: Abstract) => {
     getInput("authors", "lastname", index).type(author.lastname);
     getInput("authors", "affiliation", index).type(author.affiliation);
     getInput("authors", "email", index).type(author.email);
-    if(author.primaryContact) {
+    if (author.primaryContact) {
       getInput("authors", "confirmEmail", index).type(author.email);
     }
     getInput("authors", "orcidUrl", index).type(author.orcidUrl);
