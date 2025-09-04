@@ -1,13 +1,20 @@
 import {
+  fillAbstractSubmissionForm,
+  interceptCallForPapers,
+  interceptCheckGithubIdCall,
+} from "../../support/actions/abstractSubmissionForm";
+import {
+  abstractExample,
+  abstractFromBackEndExample,
+} from "../../support/fixtures/data";
+import {
+  getElement,
+  getSubmitButton,
+} from "../../support/selectors/abstractSubmissionForm";
+import {
   getCookieAgreeButton,
   getVideoReleaseButton,
 } from "../../support/selectors/main";
-import {
-  getSubmitButton,
-  getElement,
-} from "../../support/selectors/abstractSubmissionForm";
-import { abstractExample, abstractFromBackEndExample } from "../../support/fixtures/data";
-import { interceptCheckGithubIdCall, fillAbstractSubmissionForm } from "../../support/actions/abstractSubmissionForm";
 
 describe("[AbstractSubmissionForm] Complete Filling", () => {
   beforeEach(() => {
@@ -22,10 +29,14 @@ describe("[AbstractSubmissionForm] Complete Filling", () => {
 
   it("should fill the form and submit it successfully", () => {
     interceptCheckGithubIdCall(abstractExample);
-    cy.intercept("POST", "/api/submit-abstract/",  {
+    interceptCallForPapers();
+
+    cy.intercept("POST", "/api/abstracts/submit", {
       statusCode: 201,
       body: abstractFromBackEndExample,
     }).as("submitForm");
+
+    cy.wait("@getCallforPaper");
 
     fillAbstractSubmissionForm(abstractExample);
     cy.wait("@checkGithubId");
@@ -37,8 +48,12 @@ describe("[AbstractSubmissionForm] Complete Filling", () => {
     getElement("header").contains("Congratulations").should("be.visible");
     getElement("summary-button-group").should("be.visible");
     getElement("title").contains(abstractExample.title).should("be.visible");
-    getElement("abstract").contains(abstractExample.abstract).should("be.visible");
-    getElement("call-for-papers").contains("Open submission").should("be.visible");
+    getElement("abstract")
+      .contains(abstractExample.abstract)
+      .should("be.visible");
+    getElement("call-for-papers")
+      .contains("Open submission")
+      .should("be.visible");
     abstractExample.authors.forEach((author) => {
       Object.values(author).forEach((value) => {
         if (typeof value === "string") {
@@ -46,18 +61,20 @@ describe("[AbstractSubmissionForm] Complete Filling", () => {
         }
       });
     });
-  
+
     abstractExample.datasets.forEach((dataset) => {
       Object.values(dataset).forEach((value) => {
         getElement("datasets").contains(value).should("be.visible");
       });
     });
-    getElement("repository").contains(abstractExample.languagePreference).should("be.visible");
+    getElement("repository")
+      .contains(abstractExample.languagePreference)
+      .should("be.visible");
   });
 
-  it("should fill the form and get an error page", () => {   
+  it("should fill the form and get an error page", () => {
     interceptCheckGithubIdCall(abstractExample);
-    cy.intercept("POST", "/api/submit-abstract/", {
+    cy.intercept("POST", "/api/abstracts/submit", {
       statusCode: 500,
       body: {
         abstractExample,
@@ -66,7 +83,7 @@ describe("[AbstractSubmissionForm] Complete Filling", () => {
         message: "Internal Server Error",
       },
     }).as("submitFormError");
- 
+
     fillAbstractSubmissionForm(abstractExample);
     cy.wait("@checkGithubId");
 
