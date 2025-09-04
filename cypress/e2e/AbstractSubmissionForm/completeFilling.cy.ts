@@ -18,8 +18,12 @@ import {
 
 describe("[AbstractSubmissionForm] Complete Filling", () => {
   beforeEach(() => {
+    interceptCheckGithubIdCall(abstractExample);
+    interceptCallForPapers();
+
     cy.visit("/en/submit");
 
+    cy.wait("@getCallforPaper");
     cy.wait(1000);
     getCookieAgreeButton().click();
     cy.wait(1000);
@@ -28,15 +32,10 @@ describe("[AbstractSubmissionForm] Complete Filling", () => {
   });
 
   it("should fill the form and submit it successfully", () => {
-    interceptCheckGithubIdCall(abstractExample);
-    interceptCallForPapers();
-
     cy.intercept("POST", "/api/abstracts/submit", {
       statusCode: 201,
       body: abstractFromBackEndExample,
     }).as("submitForm");
-
-    cy.wait("@getCallforPaper");
 
     fillAbstractSubmissionForm(abstractExample);
     cy.wait("@checkGithubId");
