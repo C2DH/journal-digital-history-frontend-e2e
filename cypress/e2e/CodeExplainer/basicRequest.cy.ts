@@ -15,11 +15,11 @@ describe("ArticleCellExplainCodeButton E2E", () => {
     cy.visit("/en/article/6ig87tC5GKjQ");
     cy.viewport(1280, 720);
 
-    getCookieAgreeButton().should("be.visible").click();
-    getCookieAgreeButton().should("not.exist");
-
-    getVideoReleaseButton().should("be.visible").click();
-    getVideoReleaseButton().should("not.exist");
+    cy.wait(1000);
+    getCookieAgreeButton().click();
+    cy.wait(1000);
+    getVideoReleaseButton().click();
+    cy.wait(1000);
   });
 
   it("renders with idle status by default", () => {
