@@ -4,8 +4,8 @@ import {
 } from "../../support/selectors/main";
 
 import {
-  getExpainCodeButtonContainer,
   getExplainCodeButton,
+  getExplainCodeButtonContainer,
   getExplainCodeIconWrapperLoading,
   getExplainCodeMessages,
 } from "../../support/selectors/codeExplainer";
@@ -15,16 +15,15 @@ describe("ArticleCellExplainCodeButton E2E", () => {
     cy.visit("/en/article/6ig87tC5GKjQ");
     cy.viewport(1280, 720);
 
-    cy.wait(1000);
-    getCookieAgreeButton().click();
-    cy.wait(1000);
+    getCookieAgreeButton().should("be.visible").click();
+    getCookieAgreeButton().should("not.exist");
 
-    getVideoReleaseButton().click();
-    cy.wait(1000);
+    getVideoReleaseButton().should("be.visible").click();
+    getVideoReleaseButton().should("not.exist");
   });
 
   it("renders with idle status by default", () => {
-    getExpainCodeButtonContainer(0).should("exist").and("have.class", "idle");
+    getExplainCodeButtonContainer(0).should("exist").and("have.class", "idle");
 
     getExplainCodeButton()
       .should("exist")
@@ -35,7 +34,7 @@ describe("ArticleCellExplainCodeButton E2E", () => {
   it("shows loading state when status is loading", () => {
     getExplainCodeButton().first().click();
 
-    getExpainCodeButtonContainer(0).should("contain", "Thinking …");
+    getExplainCodeButtonContainer(0).should("contain", "Thinking …");
     getExplainCodeButton().should("be.disabled");
     getExplainCodeIconWrapperLoading().should("be.visible");
   });
@@ -43,7 +42,7 @@ describe("ArticleCellExplainCodeButton E2E", () => {
   it("shows success state after explanation is ready", () => {
     getExplainCodeButton().first().click();
 
-    getExpainCodeButtonContainer(10000).should("have.class", "success");
+    getExplainCodeButtonContainer(10000).should("have.class", "success");
     getExplainCodeButton().should("contain", "Explain code");
   });
 

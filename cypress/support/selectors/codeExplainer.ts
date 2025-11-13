@@ -1,7 +1,7 @@
 export const getExplainCodeButton = () =>
   cy.get('[data-cy="ArticleCellExplainCodeButton"]');
 
-export const getExpainCodeButtonContainer = (timeout: number) =>
+export const getExplainCodeButtonContainer = (timeout: number) =>
   cy.get(".ArticleCellExplainCodeButton", { timeout });
 
 export const getExplainCodeIconWrapperLoading = () =>
