@@ -1,14 +1,16 @@
 import {
-  getArticleCellCodeTools,
-  getCodeCell,
-  getExplainCodeButton,
-} from "cypress/support/selectors/codeExplainer";
-import {
   getCookieAgreeButton,
   getVideoReleaseButton,
 } from "../../support/selectors/main";
 
-describe("[Code Explainer] Basic Request", () => {
+import {
+  getExpainCodeButtonContainer,
+  getExplainCodeButton,
+  getExplainCodeIconWrapperLoading,
+  getExplainCodeMessages,
+} from "../../support/selectors/codeExplainer";
+
+describe("ArticleCellExplainCodeButton E2E", () => {
   beforeEach(() => {
     cy.visit("/en/article/6ig87tC5GKjQ");
     cy.viewport(1280, 720);
@@ -19,27 +21,40 @@ describe("[Code Explainer] Basic Request", () => {
 
     getVideoReleaseButton().click();
     cy.wait(1000);
-    // cy.get('[data-cy="modal"]').contains("button", "Close").click();
   });
 
-  it("should trigger the code Explainer a button and display an explanation", () => {
-    getCodeCell()
-      .first()
-      .scrollIntoView({ offset: { top: 100, left: -400 } });
+  it("renders with idle status by default", () => {
+    getExpainCodeButtonContainer(0).should("exist").and("have.class", "idle");
 
-    cy.get("body").then(($body) => {
-      const $modal = $body.find('[data-test="video-release-modal"]');
-      if ($modal.length) cy.wrap($modal).invoke("remove");
-    });
+    getExplainCodeButton()
+      .should("exist")
+      .should("contain", "Explain")
+      .and("not.be.disabled");
+  });
 
-    getArticleCellCodeTools().should("be.visible");
+  it("shows loading state when status is loading", () => {
+    getExplainCodeButton().first().click();
 
-    getExplainCodeButton().should("be.visible").first().click({ force: true });
-    console.log("Clicked on Explain Code button");
+    getExpainCodeButtonContainer(0).should("contain", "Thinking …");
+    getExplainCodeButton().should("be.disabled");
+    getExplainCodeIconWrapperLoading().should("be.visible");
+  });
 
-    // getCodeExplanationContainer()
-    //   .should("exist")
-    //   .to.not.contains("Error")
-    //   .to.contains("bokeh", "pandas");
+  it("shows success state after explanation is ready", () => {
+    getExplainCodeButton().first().click();
+
+    getExpainCodeButtonContainer(10000).should("have.class", "success");
+    getExplainCodeButton().should("contain", "Explain code");
+  });
+
+  it("shows error state if explanation fails", () => {
+    cy.intercept("POST", "/api/explain", { statusCode: 500 }).as(
+      "explainError"
+    );
+
+    getExplainCodeButton().first().click();
+    cy.wait("@explainError");
+
+    getExplainCodeMessages().should("have.class", "error");
   });
 });

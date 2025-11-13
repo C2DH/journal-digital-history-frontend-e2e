@@ -1,13 +1,11 @@
-export const getCollapseCloseButton = () =>
-  cy.get('[data-test="collapse-icon-closed"]');
-
-export const getArticleCellCodeTools = () =>
-  cy.get('[data-test="ArticleCellCodeTools"]');
-
 export const getExplainCodeButton = () =>
-  cy.get('[data-test="ArticleCellExplainCodeButton"]');
+  cy.get('[data-cy="ArticleCellExplainCodeButton"]');
 
-export const getCodeExplanationContainer = () =>
-  cy.get('[data-test="ArticleCellExplainer-messages"]');
+export const getExpainCodeButtonContainer = (timeout: number) =>
+  cy.get(".ArticleCellExplainCodeButton", { timeout });
 
-export const getCodeCell = () => cy.get('[class="ArticleCellCodeTools"]');
+export const getExplainCodeIconWrapperLoading = () =>
+  cy.get(".ArticleCellExplainCodeButton__iconWrapper .CircularLoading");
+
+export const getExplainCodeMessages = () =>
+  cy.get(".ArticleCellExplainer__messages");
