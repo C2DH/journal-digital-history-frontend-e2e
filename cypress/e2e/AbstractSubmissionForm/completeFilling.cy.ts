@@ -8,6 +8,7 @@ import {
   abstractFromBackEndExample,
 } from "../../support/fixtures/data";
 import {
+  bypassAltchaCaptcha,
   getElement,
   getSubmitButton,
 } from "../../support/selectors/abstractSubmissionForm";
@@ -40,6 +41,7 @@ describe("[AbstractSubmissionForm] Complete Filling", () => {
     fillAbstractSubmissionForm(abstractExample);
     cy.wait("@checkGithubId");
 
+    bypassAltchaCaptcha();
     getSubmitButton().click();
     cy.wait("@submitForm");
 
@@ -86,6 +88,7 @@ describe("[AbstractSubmissionForm] Complete Filling", () => {
     fillAbstractSubmissionForm(abstractExample);
     cy.wait("@checkGithubId");
 
+    bypassAltchaCaptcha();
     getSubmitButton().click();
     cy.wait("@submitFormError");
 
