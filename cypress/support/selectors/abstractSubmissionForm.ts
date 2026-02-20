@@ -11,11 +11,11 @@ export const getAddItemButton = (id: string) =>
 export const getElement = (id: string) => cy.get(`[data-test="${id}"]`);
 export const getTextArea = (id: string) =>
   cy.get(`[data-test="form-textarea-${id}"]`);
-export const getTextAreaById = (id: string, field:string, index: number) =>
+export const getTextAreaById = (id: string, field: string, index: number) =>
   cy.get(`[data-test="form-textarea-${id}-${field}-${index}"]`);
 export const getSelect = (field: string) =>
   cy.get(`[data-test="form-select-${field}"]`);
-export const getCheckbox = (id:string) =>
+export const getCheckbox = (id: string) =>
   cy.get(`[data-test="form-checkbox-${id}"]`);
 export const getCheckboxById = (id: string, field: string, index: number) =>
   cy.get(`[data-test="form-checkbox-${id}-${field}-${index}"]`);
@@ -26,5 +26,12 @@ export const getErrorMessage = (message: string) =>
   cy.contains("p.text-error", message);
 export const getErrorMessageById = (id: string) =>
   cy.get(`[data-test="error-message-${id}"]`);
-export const getErrorMessageByIdAndField = (id: string, field: string, index: number) =>
-  cy.get(`[data-test="error-message-${id}-${field}-${index}"]`);
+export const getErrorMessageByIdAndField = (
+  id: string,
+  field: string,
+  index: number,
+) => cy.get(`[data-test="error-message-${id}-${field}-${index}"]`);
+
+export const bypassAltchaCaptcha = () => {
+  cy.get(".altcha").find('[type="checkbox"]').check().click({ force: true });
+};

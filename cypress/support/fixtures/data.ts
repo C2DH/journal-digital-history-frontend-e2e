@@ -78,6 +78,7 @@ export const abstractFromBackEndExample = {
   ],
   language_preference: "Python",
   consented: true,
+  altcha: "fake altcha response",
 };
 
 export const callForPaperOpenExample = {
