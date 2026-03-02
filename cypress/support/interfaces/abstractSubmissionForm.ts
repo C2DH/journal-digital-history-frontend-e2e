@@ -7,6 +7,7 @@ export interface Author {
   githubId: string;
   blueskyId: string;
   facebookId: string;
+  linkedinId: string;
   primaryContact: boolean;
 }
 

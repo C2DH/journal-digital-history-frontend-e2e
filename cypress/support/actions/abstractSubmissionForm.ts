@@ -48,6 +48,7 @@ export const fillAbstractSubmissionForm = (abstractExample: Abstract) => {
     getInput("authors", "githubId", index).type(author.githubId);
     getInput("authors", "blueskyId", index).type(author.blueskyId);
     getInput("authors", "facebookId", index).type(author.facebookId);
+    getInput("authors", "linkedinId", index).type(author.linkedinId);
   });
 
   getSelect("languagePreference").select(abstractExample.languagePreference);
