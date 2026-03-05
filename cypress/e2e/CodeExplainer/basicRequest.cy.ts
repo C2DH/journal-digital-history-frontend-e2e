@@ -1,8 +1,4 @@
-import {
-  getCookieAgreeButton,
-  getVideoReleaseButton,
-} from "../../support/selectors/main";
-
+import { getCookieRefuseButton } from "cypress/support/selectors/main";
 import {
   getExplainCodeButton,
   getExplainCodeButtonContainer,
@@ -16,10 +12,7 @@ describe("ArticleCellExplainCodeButton E2E", () => {
     cy.viewport(1280, 720);
 
     cy.wait(1000);
-    getCookieAgreeButton().click();
-    cy.wait(1000);
-    getVideoReleaseButton().click();
-    cy.wait(1000);
+    getCookieRefuseButton().click();
   });
 
   it("renders with idle status by default", () => {
@@ -48,7 +41,7 @@ describe("ArticleCellExplainCodeButton E2E", () => {
 
   it("shows error state if explanation fails", () => {
     cy.intercept("POST", "/api/explain", { statusCode: 500 }).as(
-      "explainError"
+      "explainError",
     );
 
     getExplainCodeButton().first().click();

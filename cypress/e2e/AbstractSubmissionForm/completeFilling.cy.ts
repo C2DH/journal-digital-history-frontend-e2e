@@ -11,10 +11,7 @@ import {
   getElement,
   getSubmitButton,
 } from "../../support/selectors/abstractSubmissionForm";
-import {
-  getCookieAgreeButton,
-  getVideoReleaseButton,
-} from "../../support/selectors/main";
+import { getCookieRefuseButton } from "../../support/selectors/main";
 
 describe("[AbstractSubmissionForm] Complete Filling", () => {
   beforeEach(() => {
@@ -25,10 +22,7 @@ describe("[AbstractSubmissionForm] Complete Filling", () => {
 
     cy.wait("@getCallforPaper");
     cy.wait(1000);
-    getCookieAgreeButton().click();
-    cy.wait(1000);
-    getVideoReleaseButton().click();
-    cy.wait(1000);
+    getCookieRefuseButton().click();
   });
 
   it("should fill the form and submit it successfully", () => {
