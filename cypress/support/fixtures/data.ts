@@ -13,6 +13,7 @@ export const abstractExample = {
       githubId: "johndoe",
       blueskyId: "johndoe.bsky.social",
       facebookId: "johndoe",
+      linkedinId: "john-doe",
       primaryContact: false,
     },
     {
@@ -24,6 +25,7 @@ export const abstractExample = {
       githubId: "janedoe",
       blueskyId: "janedoe.bsky.social",
       facebookId: "janedoe",
+      linkedinId: "jane-doe",
       primaryContact: true,
     },
   ],
@@ -57,6 +59,7 @@ export const abstractFromBackEndExample = {
       github_id: "johndoe",
       bluesky_id: "johndoe.bsky.social",
       facebook_id: "johndoe",
+      linkedin_id: "john-doe",
     },
     {
       firstname: "Jane",
@@ -67,6 +70,7 @@ export const abstractFromBackEndExample = {
       github_id: "janedoe",
       bluesky_id: "janedoe.bsky.social",
       facebook_id: "janedoe",
+      linkedin_id: "jane-doe",
     },
   ],
   datasets: [
