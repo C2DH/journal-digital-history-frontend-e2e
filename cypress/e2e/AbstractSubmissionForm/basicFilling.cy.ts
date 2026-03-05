@@ -6,18 +6,14 @@ import {
   getSubmitButton,
   getTextArea,
 } from "../../support/selectors/abstractSubmissionForm";
-import { getCookieAgreeButton, getVideoReleaseButton } from "../../support/selectors/main";
+import { getCookieRefuseButton } from "../../support/selectors/main";
 
 describe("[AbstractSubmissionForm] Basic Filling", () => {
   beforeEach(() => {
     cy.visit("/en/submit");
 
     cy.wait(1000);
-    getCookieAgreeButton().click();
-    cy.wait(1000);
-    getVideoReleaseButton().click();
-    cy.wait(1000);
-    
+    getCookieRefuseButton().click();
   });
 
   it("should render the AbstractSubmissionForm component", () => {
@@ -40,7 +36,7 @@ describe("[AbstractSubmissionForm] Basic Filling", () => {
     getTextArea("abstract").type("This is the content of my abstract.");
     getTextArea("abstract").should(
       "have.value",
-      "This is the content of my abstract."
+      "This is the content of my abstract.",
     );
   });
 
@@ -50,7 +46,7 @@ describe("[AbstractSubmissionForm] Basic Filling", () => {
     getInput("authors", "affiliation", 0).type("University of Test");
     getInput("authors", "email", 0).type("johndoe@example.com");
     getInput("authors", "orcidUrl", 0).type(
-      "https://orcid.org/0000-0000-0000-0000"
+      "https://orcid.org/0000-0000-0000-0000",
     );
     getInput("authors", "githubId", 0).type("johndoe");
 

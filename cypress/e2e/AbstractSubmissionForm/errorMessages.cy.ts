@@ -1,16 +1,13 @@
-import {
-  getSubmitButton,
-  getInput,
-  getCheckboxById,
-  getAddItemButton,
-  getErrorMessageByIdAndField,
-  getErrorMessage,
-} from "../../support/selectors/abstractSubmissionForm";
 import { abstractExample, wrongEmail } from "../../support/fixtures/data";
 import {
-  getCookieAgreeButton,
-  getVideoReleaseButton,
-} from "../../support/selectors/main";
+  getAddItemButton,
+  getCheckboxById,
+  getErrorMessage,
+  getErrorMessageByIdAndField,
+  getInput,
+  getSubmitButton,
+} from "../../support/selectors/abstractSubmissionForm";
+import { getCookieRefuseButton } from "../../support/selectors/main";
 
 describe("[AbstractSubmissionForm] Error messages", () => {
   beforeEach(() => {
@@ -18,17 +15,14 @@ describe("[AbstractSubmissionForm] Error messages", () => {
     cy.get("form").should("be.visible");
 
     cy.wait(1000);
-    getCookieAgreeButton().click();
-    cy.wait(1000);
-    getVideoReleaseButton().click();
-    cy.wait(1000);
+    getCookieRefuseButton().click();
   });
 
   it("should display a global error message", () => {
     getSubmitButton().click();
 
     getErrorMessage(
-      "There are errors in your submission. Please fix them before submitting."
+      "There are errors in your submission. Please fix them before submitting.",
     ).should("exist");
   });
 
@@ -52,28 +46,27 @@ describe("[AbstractSubmissionForm] Error messages", () => {
 
     it("should display an error message for no githubId provided at all", () => {
       getSubmitButton().click();
-      getErrorMessageByIdAndField("authors", "githubId",0).should("exist");
-      getErrorMessageByIdAndField("authors", "githubId",0).should(
+      getErrorMessageByIdAndField("authors", "githubId", 0).should("exist");
+      getErrorMessageByIdAndField("authors", "githubId", 0).should(
         "contain",
-        "At least one author must have a valid Github Username"
+        "At least one author must have a valid Github Username",
       );
-      getErrorMessageByIdAndField("authors", "githubId",1).should("exist");
-      getErrorMessageByIdAndField("authors", "githubId",1).should(
+      getErrorMessageByIdAndField("authors", "githubId", 1).should("exist");
+      getErrorMessageByIdAndField("authors", "githubId", 1).should(
         "contain",
-        "At least one author must have a valid Github Username"
+        "At least one author must have a valid Github Username",
       );
     });
 
     it("should display an error message for mismatching email", () => {
       getInput("authors", "confirmEmail", 1).type(wrongEmail);
       getSubmitButton().click();
-      getErrorMessageByIdAndField("authors", "confirmEmail",1).should("exist");
-      getErrorMessageByIdAndField("authors", "confirmEmail",1).should(
+      getErrorMessageByIdAndField("authors", "confirmEmail", 1).should("exist");
+      getErrorMessageByIdAndField("authors", "confirmEmail", 1).should(
         "contain",
-        "Email addresses do not match"
+        "Email addresses do not match",
       );
     });
-
   });
 
   describe("[Dataset] - Error messages", () => {
@@ -81,12 +74,12 @@ describe("[AbstractSubmissionForm] Error messages", () => {
       getAddItemButton("datasets").click();
 
       getInput("datasets", "link", 0).type(abstractExample.datasets[0].link);
-      
+
       getSubmitButton().click();
-      getErrorMessageByIdAndField("datasets", "description",0).should("exist");
-      getErrorMessageByIdAndField("datasets", "description",0).should(
+      getErrorMessageByIdAndField("datasets", "description", 0).should("exist");
+      getErrorMessageByIdAndField("datasets", "description", 0).should(
         "contain",
-        "Must be at least 1 character"
+        "Must be at least 1 character",
       );
     });
   });
