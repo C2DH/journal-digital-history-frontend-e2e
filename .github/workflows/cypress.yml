@@ -31,5 +31,6 @@ jobs:
       - uses: act10ns/slack@v2
         with:
           status: ${{ job.status }}
+          config: .github/config/slack.yml
           channel: "#jdh-cypress-test"
         if: always()
