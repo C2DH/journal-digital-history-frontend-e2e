@@ -12,9 +12,10 @@ on:
 jobs:
   cypress-run:
     runs-on: self-hosted
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     container:
       image: cypress/included:14.3.1
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -26,3 +27,9 @@ jobs:
         env:
           CYPRESS_BASE_URL: http://10.240.4.198/
         run: cypress run
+
+      - uses: act10ns/slack@v2
+        with:
+          status: ${{ job.status }}
+          channel: "#jdh-cypress-test"
+        if: always()
