@@ -3,7 +3,7 @@ name: Run Cypress Tests
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 8 * * 1,4"
+    - cron: "0 8 * * 1,2,3,4,5"
   push:
     branches: [main, develop, feature/my-feature]
   pull_request:
