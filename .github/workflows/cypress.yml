@@ -3,7 +3,7 @@ name: Run Cypress Tests
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 8 * * 1,4"
+    - cron: "0 8 * * 1,2,3,4,5"
   push:
     branches: [main, develop, feature/my-feature]
   pull_request:
@@ -31,5 +31,6 @@ jobs:
       - uses: act10ns/slack@v2
         with:
           status: ${{ job.status }}
+          config: .github/config/slack.yml
           channel: "#jdh-cypress-test"
         if: always()
