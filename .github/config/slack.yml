@@ -1,5 +1,5 @@
 username: Cypress Tests
-icon_url: https://raw.githubusercontent.com/cypress-io/cypress/develop/assets/cypress-logo-light.png
+icon_url: https://user-images.githubusercontent.com/2801156/153322291-8b186487-5127-48f7-aa6d-b0ef350f8575.png
 
 text: |
   *<{{workflowRunUrl}}|Workflow _{{workflow}}_  is _{{jobStatus}}_>* for <{{refUrl}}|`{{ref}}`>
